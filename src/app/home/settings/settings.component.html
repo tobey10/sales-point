@@ -1,0 +1,119 @@
+<div class="main">
+  <div class="container">
+    <button class="btn btn-outline-primary btn-sm" (click)="toggle(1)">Change Password</button>
+    <button class="btn btn-outline-primary btn-sm" (click)="toggle(2)">Change Name</button>
+    <button class="btn btn-outline-primary btn-sm" (click)="toggle(3)">Change Weight</button>
+  </div>
+  <div [ngSwitch]="displayDivNumber">
+    <div *ngSwitchCase="1" class="w-25">
+      <p class="container-body">Change Password</p>
+      <form class="form" autocomplete="off" [formGroup]="password" (ngSubmit)="onSavePassword()">
+        <div class="form-floating mb-3">
+          <input
+            class="form-control"
+            placeholder="Old Password"
+            id="oldPassword"
+            name="oldPassword"
+            formControlName="oldPassword"
+            required
+            type="password"
+            [ngClass]="{ 'is-invalid': isPassword && f.oldPassword.errors }"
+          />
+          <label for="oldPassword">Old password</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            class="form-control"
+            placeholder="New Password"
+            id="newPassword"
+            name="newPassword"
+            formControlName="newPassword"
+            required
+            type="password"
+            [ngClass]="{ 'is-invalid': isPassword && f.newPassword.errors }"
+          />
+          <label for="newPassword">New password</label>
+        </div>
+        <button class="btn btn-primary btn-sm">Save Changes</button>
+      </form>
+    </div>
+    <div *ngSwitchCase="2" class="w-25">
+      <p class="container-body">Change Name</p>
+      <form class="form" autocomplete="off" [formGroup]="changeName" (ngSubmit)="onSaveUsername()">
+        <div class="form-floating mb-3">
+          <input
+            class="form-control"
+            placeholder="name"
+            id="name"
+            name="name"
+            formControlName="name"
+            required
+            type="text"
+            [ngClass]="{ 'is-invalid': isName && d.name.errors }"
+          />
+          <label for="name">name</label>
+          <button class="btn btn-primary btn-sm mt-3">Save Changes</button>
+        </div>
+      </form>
+    </div>
+    <div *ngSwitchCase="3" class="w-25">
+      <p class="container-body">Change Weight & Height</p>
+      <form class="form" autocomplete="off" [formGroup]="changeWeight" (ngSubmit)="onSaveEmail()">
+        <div class="form-floating mb-3">
+          <input
+            class="form-control"
+            placeholder="Email"
+            id="currentWeight"
+            name="currentWeight"
+            formControlName="currentWeight"
+            required
+            type="currentWeight"
+            [ngClass]="{ 'is-invalid': isWeight && e.currentWeight.errors }"
+          />
+          <label for="currentWeight">Current Weight</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input
+              class="form-control"
+              placeholder="Email"
+              id="targetWeight"
+              name="targetWeight"
+              formControlName="targetWeight"
+              required
+              type="targetWeight"
+              [ngClass]="{ 'is-invalid': isWeight && e.targetWeight.errors }"
+            />
+            <label for="targetWeight">Target Weight</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              class="form-control"
+              placeholder="Email"
+              id="currentHeight"
+              name="currentHeight"
+              formControlName="currentHeight"
+              required
+              type="currentHeight"
+              [ngClass]="{ 'is-invalid': isWeight && e.currentHeight.errors }"
+            />
+            <label for="email">Current Height</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              class="form-control"
+              placeholder="Email"
+              id="targetHeight"
+              name="targetHeight"
+              formControlName="targetHeight"
+              required
+              type="targetHeight"
+              [ngClass]="{ 'is-invalid': isWeight && e.targetHeight.errors }"
+            />
+            <label for="targetHeight">Target Height</label>
+          </div>
+          <button class="btn btn-primary btn-sm mt-3">Save Changes</button>
+      </form>
+    </div>
+  </div>
+  <button class="btn btn-danger btn-sm mt-5 w-25" (click)="logout()">Logout</button>
+</div>

@@ -1,0 +1,61 @@
+<div class="container-fluid ps-md-0">
+  <div class="row g-0">
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <h3 class="login-heading mb-4">Welcome back!</h3>
+
+              <!-- Sign In Form -->
+              <p *ngIf="isError" class="login-body">{{errorMsg?.error?.msg}}</p>
+              <form autocomplete="off" [formGroup]="login">
+                <div class="form-floating mb-3">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    name="emailPhoneNumber"
+                    formControlName="emailPhoneNumber"
+                    placeholder="name@example.com"
+                    required
+                    [ngClass]="{ 'is-invalid': submitLogin && f.emailPhoneNumber.errors }"
+                  >
+                  <label for="email">Email or Phone Number</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    class="form-control"
+                    id="password"
+                    placeholder="Password"
+                    name="password"
+                    formControlName="password"
+                    required
+                    type="password"
+                    [ngClass]="{ 'is-invalid': submitLogin && f.password.errors }"
+                  >
+                  <label for="password">Password</label>
+                </div>
+
+
+                <a class="d-block text-center mt-2 small mb-4" routerLink="/signup">Have an account? Sign In</a>
+
+                <div class="d-grid">
+                  <button  (click)="signIn()" class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit">Sign in</button>
+                  <div class="text-center">
+                    <a class="small" routerLink="/forgot-password" >Forgot password?</a>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- https://www.youtube.com/watch?v=7giZGFDGnkc&list=PL55RiY5tL51rG1x02Yyj93iypUuHYXcB_ -->

@@ -1,0 +1,178 @@
+<!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
+
+<body>
+  <div class="container">
+    <div class="row main">
+      <div class="col-lg-10 col-xl-9 mx-auto">
+        <div
+          class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden"
+        >
+          <div class="card-img-left d-none d-md-flex">
+            <!-- Background image for card set in CSS! -->
+          </div>
+          <div class="card-body p-3 px-5">
+            <h5 class="card-title text-center mb-5 fw-light fs-5">Register</h5>
+            <p *ngIf="isError" class="login-body">{{ errorStatment }}</p>
+            <form
+              autocomplete="off"
+              [formGroup]="sign"
+              class="form"
+              (ngSubmit)="signUp()"
+            >
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="name"
+                  name="name"
+                  formControlName="name"
+                  [ngClass]="{ 'is-invalid': submitSignUp && f.name.errors }"
+                  required
+                  autofocus
+                />
+                <label for="name">Name</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="name@example.com"
+                  id="email"
+                  name="email"
+                  formControlName="email"
+                  [ngClass]="{ 'is-invalid': submitSignUp && f.email.errors }"
+                />
+                <label for="email">Email</label>
+              </div>
+
+              <hr />
+
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="phoneNumber"
+                  id="phoneNumber"
+                  required
+                  name="phoneNumber"
+                  formControlName="phoneNumber"
+                  [ngClass]="{
+                    'is-invalid': submitSignUp && f.phoneNumber.errors
+                  }"
+                />
+                <label for="phoneNumber">Phone Number</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Password"
+                  id="password"
+                  required
+                  name="password"
+                  formControlName="password"
+                  [ngClass]="{
+                    'is-invalid': submitSignUp && f.password.errors
+                  }"
+                />
+                <label for="password">Password</label>
+              </div>
+              <hr />
+
+              <div class="row">
+                <div class="form-floating mb-3 col-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="0.0"
+                    id="weight"
+                    required
+                    name="weight"
+                    formControlName="weight"
+                    [ngClass]="{
+                      'is-invalid': submitSignUp && f.weight.errors
+                    }"
+                  />
+                  <label for="weight">Weight</label>
+                </div>
+                <div class="form-floating mb-3 col-4">
+                  <select
+                    id="weightUnit"
+                    class="form-select"
+                    formControlName="weightUnit"
+                    name="weightUnit"
+                    required
+                    [ngClass]="{
+                      'is-invalid': submitSignUp && f.weightUnit.errors
+                    }"
+                  >
+                    <option selected>Choose...</option>
+                    <option *ngFor="let k of weightUnits" [ngValue]="k.key">
+                      {{ k.value }}
+                    </option>
+                  </select>
+                  <label for="weightUnit">Unit</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-floating mb-3 col-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="height"
+                    id="height"
+                    required
+                    name="height"
+                    formControlName="height"
+                    [ngClass]="{
+                      'is-invalid': submitSignUp && f.height.errors
+                    }"
+                  />
+                  <label for="height">Height</label>
+                </div>
+                <div class="form-floating mb-3 col-4">
+                  <select
+                    id="heightUnit"
+                    class="form-select"
+                    formControlName="heightUnit"
+                    name="heightUnit"
+                    required
+                    [ngClass]="{
+                      'is-invalid': submitSignUp && f.heightUnit.errors
+                    }"
+                  >
+                    <option selected>Choose...</option>
+                    <option *ngFor="let k of heightUnits" [ngValue]="k.key">
+                      {{ k.value }}
+                    </option>
+                  </select>
+                  <label for="heightUnit">unit</label>
+                </div>
+              </div>
+
+              <div class="d-grid mb-2">
+                <button
+                  class="
+                    btn btn-lg btn-primary btn-login
+                    fw-bold
+                    text-uppercase
+                  "
+                  type="submit"
+                >
+                  Register
+                </button>
+              </div>
+
+              <a class="d-block text-center mt-2 small" routerLink="/login"
+                >Have an account? Sign In</a
+              >
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
