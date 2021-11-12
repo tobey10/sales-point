@@ -1,0 +1,37 @@
+<div class="p-3">
+  <p>Details</p>
+  <div class="w-50 col mb-3">
+    <div class="col d-flex justify-content-between">
+      <div>
+        <p>{{user?.name}}</p>
+      </div>
+      <div>
+        <p>{{user?.email}}</p>
+      </div>
+      <div>
+        <p>{{user?.phoneNumber}}</p>
+      </div>
+    </div>
+  </div>
+  <p>Weight & Height</p>
+  <div class="w-50 col">
+    <div class="col d-flex justify-content-between">
+      <div>
+        <p>Current Weight</p>
+        <p>{{user?.currentWeight}} {{user?.weightUnit}}</p>
+      </div>
+      <div>
+        <p>Target Weight</p>
+        <p>{{user?.targetWeight}}{{user?.weightUnit}}</p>
+      </div>
+      <div>
+        <p>Current Height</p>
+        <p>{{user?.currentHeight}}{{user?.heightUnit}}</p>
+      </div>
+      <div>
+        <p>Target Height</p>
+        <p>{{user?.targetHeight}}{{user?.heightUnit}}</p>
+      </div>
+    </div>
+  </div>
+</div>

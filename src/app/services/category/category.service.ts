@@ -17,7 +17,7 @@ export class CategoryService {
     headers: new HttpHeaders({"Content-Type" : "application/json"})
   }
 
-  createCategory(category: Category): Observable<Category>{
+  createCategory(category: Category): Observable<any>{
     return this._http.post<Category>(this.categoryURL, JSON.stringify(category),this.httpOptions).pipe(
       retry(1),
       catchError(this.handleError)

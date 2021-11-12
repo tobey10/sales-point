@@ -19,8 +19,6 @@ export class ProfileComponent implements OnInit {
     this.userService.getCurrentUser().subscribe((data) => {
       this.user = data.data
       console.log(this.user)
-    },error => {
-      console.log(error)
     })
   }
 }

@@ -1,7 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CategoryComponent } from './category/category.component';
+import { IngredientComponent } from './ingredient/ingredient.component';
+import { ProfileComponent } from './profile/profile.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {path: '', pathMatch:'full', redirectTo:'profile'},
+  {path:'profile', component: ProfileComponent},
+  {path: 'category', component: CategoryComponent},
+  {path: 'ingredient', component: IngredientComponent}
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

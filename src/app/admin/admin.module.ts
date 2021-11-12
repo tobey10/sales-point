@@ -2,20 +2,36 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
-import { CatgoryComponent } from './catgory/catgory.component';
+import { CategoryComponent } from './category/category.component';
 import { IngredientComponent } from './ingredient/ingredient.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ProfileComponent } from './profile/profile.component';
+import { AdminComponent } from './admin.component';
 
 
 @NgModule({
   declarations: [
-    CatgoryComponent,
+    CategoryComponent,
     IngredientComponent,
-    NavbarComponent
+    NavbarComponent,
+    ProfileComponent,
+    AdminComponent
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
+  exports:[
+    CategoryComponent,
+    IngredientComponent,
+    NavbarComponent,
+    ProfileComponent
   ]
 })
+
 export class AdminModule { }
