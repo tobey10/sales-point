@@ -13,8 +13,8 @@ export class LoginComponent implements OnInit {
 
   login!: FormGroup;
   submitLogin = false;
-  isError:boolean = false;
-  errorMsg!:any;
+  isError: boolean = false;
+  errorMsg!: any;
 
   constructor(private _formBuilder: FormBuilder, private _router: Router, private authService: AuthService) { }
 
@@ -22,34 +22,38 @@ export class LoginComponent implements OnInit {
     this.loginForm();
   }
 
-  loginForm(){
+  loginForm() {
     this.login = this._formBuilder.group({
       emailPhoneNumber: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-  get f(){
+  get f() {
     return this.login.controls;
   }
 
-  signIn(){
-    this.submitLogin  = true;
-    if(this.login.invalid){
+  signIn() {
+    this.submitLogin = true;
+    if (this.login.invalid) {
       return;
     }
     console.log(this.login.value)
     this.authService.login(this.login.get('emailPhoneNumber')?.value, this.login.get('password')?.value)
-    .pipe(first())
-    .subscribe(
-      data => {
-        this._router.navigate(['../home'])
-      },error => {
-        this.isError = true
-        this.errorMsg = error
-        console.log('erro',this.errorMsg)
-        console.log(this.errorMsg.error.msg)
-      }
-    )
+      .pipe(first())
+      .subscribe(
+        data => {
+          if (data.meta === "administator") {
+            this._router.navigate(['../admin'])
+          } else if (data.meta === "user") {
+            this._router.navigate(['../home'])
+          }
+        }, error => {
+          this.isError = true
+          this.errorMsg = error
+          console.log('erro', this.errorMsg)
+          console.log(this.errorMsg.error.msg)
+        }
+      )
   }
 }
