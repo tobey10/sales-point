@@ -1,1 +1,47 @@
-<p>catgory works!</p>
+<div class="p-5">
+  <div class="container-fluid">
+    <button class="btn btn-primary mb-2">Add Category</button>
+    <div class="d-flex flex-row align-items-center">
+      <table class="table table-hover w-50">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Category</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let category of categories; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{category?.category}}</td>
+            <td>
+              <button class="btn btn-danger m-sm-1" (click)="deleteCategory(category?._id)">Delete</button>
+              <button class="btn btn-primary" (click)="getCategory(category?._id)">Edit</button>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+    <div class="w-50" style="margin-left: 40px;" id="edit">
+      <p *ngIf="isCreate">Create Category</p>
+      <p *ngIf="!isCreate">Edit Category</p>
+      <form class="form" autocomplete="off" [formGroup]="categoryForm">
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="category"
+            name="category"
+            formControlName="category"
+            placeholder="category"
+            required
+            [ngClass]="{ 'is-invalid': submit && f.category.errors }"
+          />
+          <label for="category">Category</label>
+        </div>
+        <button class="btn btn-success" *ngIf="isCreate">Save</button>
+        <button class="btn btn-primary" *ngIf="!isCreate">Update</button>
+      </form>
+    </div>
+    </div>
+  </div>
+</div>

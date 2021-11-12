@@ -1,8 +1,9 @@
 import { Category } from "./category";
 
 export class Ingredient{
+  _id!: String;
   category!: Category;
-  ingreident!: String;
+  ingredient!: String;
   calorie!: Number;
-  caloriUnit!: String
+  calorieUnit!: String
 }

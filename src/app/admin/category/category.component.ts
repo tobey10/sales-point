@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Category } from 'src/app/model/category';
 import { CategoryService } from 'src/app/services/category/category.service';
 
@@ -10,10 +11,25 @@ import { CategoryService } from 'src/app/services/category/category.service';
 export class CategoryComponent implements OnInit {
   categories: Category[] = [];
   category!: Category;
-  constructor( private categoryService: CategoryService) { }
+  categoryForm!: FormGroup;
+  submit = false;
+  isCreate: Boolean = true;
+
+  constructor( private categoryService: CategoryService, private _formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.getCategories()
+    this.getCategories();
+    this.createForm();
+  }
+
+  createForm(){
+    this.categoryForm = this._formBuilder.group({
+      category: ['', Validators.required],
+    })
+  }
+
+  get f(){
+    return this.categoryForm.controls;
   }
 
   getCategories(){
@@ -26,6 +42,7 @@ export class CategoryComponent implements OnInit {
   }
 
   getCategory(id: any){
+    this.isCreate = false;
     this.categoryService.getCategory(id).subscribe((data) => {
       this.category = data.data
     },error => {
