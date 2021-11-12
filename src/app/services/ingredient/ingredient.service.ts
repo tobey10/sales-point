@@ -18,7 +18,7 @@ export class IngredientService {
     headers: new HttpHeaders({"Content-Type" : "application/json"})
   }
 
-  createCategory(ingredient: Ingredient): Observable<Category>{
+  createCategory(ingredient: Ingredient): Observable<any>{
     return this._http.post<Category>(this.ingredientURL, JSON.stringify(ingredient),this.httpOptions).pipe(
       retry(1),
       catchError(this.handleError)
