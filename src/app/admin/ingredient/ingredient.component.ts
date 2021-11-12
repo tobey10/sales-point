@@ -59,31 +59,68 @@ export class IngredientComponent implements OnInit {
 
   getIngredient(id: any){
     this.isCreate = false;
+    const element = document.getElementById('edit');
+    if(element){
+      element.style.display = 'block'
+    }
     this.ingredientService.getIngredient(id).subscribe((data) => {
       this.ingredient = data.data
+      this.ingredientForm.patchValue(this.ingredient);
+      this.ingredientForm.patchValue({
+        category: this.ingredient.category.category
+      })
       console.log(this.ingredient)
     },error => {
       console.log(error)
     })
   }
 
-  createIngredients(ingredient: Ingredient){
-    this.ingredientService.createIngredient(ingredient).subscribe((data) => {
+  addIngredient(){
+    this.isCreate = true;
+    this.ingredientForm.reset();
+    const element = document.getElementById('edit');
+    if(element){
+      element.style.display = 'block'
+    }
+  }
+
+  onSubmit(){
+    this.submit = true;
+    if(this.ingredientForm.invalid){
+      return;
+    }
+    this.ingredientService.createIngredient(this.ingredientForm.value).subscribe((data) => {
       console.log(data.msg)
+      this.getIngredients();
+      this.ingredientForm.reset();
+      Object.keys(this.ingredientForm.controls).forEach(key => {
+        this.ingredientForm.get(key)?.setErrors(null) ;
+      });
     },error => {
       console.log(error)
     })
   }
 
-  updateIngredient(ingredientId: any, ingredientObject: any){
-    this.ingredientService.updateIngredient(ingredientId, ingredientObject).subscribe((data) => {
-      console.log(data)
+  onEdit(){
+    this.submit = true;
+    if(this.ingredientForm.invalid){
+      return;
+    }
+    this.ingredientService.updateIngredient(this.ingredient._id, this.ingredientForm.value).subscribe((data) => {
+      console.log(data.msg)
+      this.getIngredients();
+      this.ingredientForm.reset();
+      Object.keys(this.ingredientForm.controls).forEach(key => {
+        this.ingredientForm.get(key)?.setErrors(null) ;
+      });
     })
   }
+
 
   deleteIngredient(id: any){
     this.ingredientService.deleteIngredient(id).subscribe((data) => {
       console.log(data.msg)
+      this.getIngredients()
     })
   }
 }

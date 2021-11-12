@@ -41,32 +41,65 @@ export class CategoryComponent implements OnInit {
     })
   }
 
+  addCategory(){
+    this.isCreate = true;
+    this.categoryForm.reset();
+    const element = document.getElementById('edit');
+    if(element){
+      element.style.display = 'block'
+    }
+  }
+
   getCategory(id: any){
     this.isCreate = false;
+    const element = document.getElementById('edit');
+    if(element){
+      element.style.display = 'block'
+    }
     this.categoryService.getCategory(id).subscribe((data) => {
       this.category = data.data
+      this.categoryForm.patchValue(this.category)
     },error => {
       console.log(error)
     })
   }
 
-  createCategory(category: Category){
-    this.categoryService.createCategory(category).subscribe((data) => {
+  onSubmit(){
+    this.submit = true;
+    if(this.categoryForm.invalid){
+      return;
+    }
+    this.categoryService.createCategory(this.categoryForm.value).subscribe((data) => {
       console.log(data.msg)
+      this.getCategories();
+      this.categoryForm.reset();
+      Object.keys(this.categoryForm.controls).forEach(key => {
+        this.categoryForm.get(key)?.setErrors(null) ;
+      });
     },error => {
       console.log(error)
     })
   }
 
-  updateCategory(categoryId: any, categoryObject: any){
-    this.categoryService.updateCategory(categoryId, categoryObject).subscribe((data) => {
-      console.log(data)
+  onEdit(){
+    this.submit = true;
+    if(this.categoryForm.invalid){
+      return;
+    }
+    this.categoryService.updateCategory(this.category._id, this.categoryForm.value).subscribe((data) => {
+      console.log(data.msg)
+      this.getCategories();
+      this.categoryForm.reset();
+      Object.keys(this.categoryForm.controls).forEach(key => {
+        this.categoryForm.get(key)?.setErrors(null) ;
+      });
     })
   }
 
   deleteCategory(id: any){
     this.categoryService.deleteCategory(id).subscribe((data) => {
-      console.log(data.msg)
+      console.log(data.msg);
+      this.getCategories();
     })
   }
 }
