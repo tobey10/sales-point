@@ -76,7 +76,7 @@ export class SettingsComponent implements OnInit {
     return this.changeWeight.controls
   }
 
-  onSaveEmail(){
+  onSaveWeight(){
     this.isWeight = true;
     if(this.changeWeight.invalid){
       return;
@@ -85,6 +85,7 @@ export class SettingsComponent implements OnInit {
     this.userService.updateUser(this.changeWeight.value).subscribe((data) => {
       console.log(data)
       this.responseMessage = data.msg
+      this.changeWeight.reset()
     },error => {
       console.log(error)
     })
@@ -103,6 +104,7 @@ export class SettingsComponent implements OnInit {
     this.userService.updateUser(this.changeName.value).subscribe((data) => {
       console.log(data)
       this.responseMessage = data.msg
+      this.changeName.reset()
     },error => {
       console.log(error)
     })
