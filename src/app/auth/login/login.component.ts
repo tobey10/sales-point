@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   loginForm() {
     this.login = this._formBuilder.group({
-      emailPhoneNumber: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     console.log(this.login.value)
-    this.authService.login(this.login.get('emailPhoneNumber')?.value, this.login.get('password')?.value)
+    this.authService.login(this.login.get('email')?.value, this.login.get('password')?.value)
       .pipe(first())
       .subscribe(
         data => {

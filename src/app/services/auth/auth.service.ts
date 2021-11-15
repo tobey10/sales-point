@@ -17,8 +17,8 @@ export class AuthService {
     headers: new HttpHeaders({"Content-Type" : "application/json"})
   }
 
-  login(emailPhoneNumber: string, password: string){
-    return this._http.post<UserToken>(this.authURL, {emailPhoneNumber, password})
+  login(email: string, password: string){
+    return this._http.post<UserToken>(this.authURL, {email, password})
     .pipe(
       map((token: any) => {
         localStorage.setItem('x-auth-token', token.data);

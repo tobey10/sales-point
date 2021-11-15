@@ -34,10 +34,7 @@ export class SignupComponent implements OnInit {
       password: ['', Validators.required],
       name: ['', Validators.required],
       phoneNumber: ['', Validators.required],
-      weight: ['', Validators.required],
-      weightUnit: ['', Validators.required],
-      height: ['', Validators.required],
-      heightUnit: ['', Validators.required],
+      role:['user']
     });
   }
 

@@ -16,13 +16,13 @@
                     type="email"
                     class="form-control"
                     id="email"
-                    name="emailPhoneNumber"
-                    formControlName="emailPhoneNumber"
+                    name="email"
+                    formControlName="email"
                     placeholder="name@example.com"
                     required
-                    [ngClass]="{ 'is-invalid': submitLogin && f.emailPhoneNumber.errors }"
+                    [ngClass]="{ 'is-invalid': submitLogin && f.email.errors }"
                   >
-                  <label for="email">Email or Phone Number</label>
+                  <label for="email">Email</label>
                 </div>
                 <div class="form-floating mb-3">
                   <input
