@@ -32,6 +32,13 @@ export class IngredientService {
     )
   }
 
+  getIngredientsByAdmin():Observable<any>{
+    return this._http.get<any>(this.ingredientURL +"admin").pipe(
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
+
   getIngredients():Observable<any>{
     return this._http.get<any>(this.ingredientURL).pipe(
       retry(1),

@@ -6,7 +6,6 @@
         <thead>
           <tr class="text-center">
             <th>No</th>
-            <th>Category</th>
             <th>Ingreident</th>
             <th>Calorie</th>
             <th>Unit</th>
@@ -16,7 +15,6 @@
         <tbody>
           <tr  class="text-center" *ngFor="let ingredient of ingredients; let i = index">
             <td>{{ i + 1 }}</td>
-            <td>{{ ingredient?.category?.category }}</td>
             <td>{{ ingredient?.ingredient }}</td>
             <td>{{ ingredient?.calorie }}</td>
             <td>{{ ingredient?.calorieUnit }}</td>
@@ -49,38 +47,18 @@
             />
             <label for="ingredient">Name</label>
           </div>
-          <div class="row mb-3">
-            <div class="form-floating col-8">
-              <select
-                id="category"
-                class="form-select"
-                formControlName="category"
-                name="category"
-                required
-                [ngClass]="{
-                  'is-invalid': submit && f.category.errors
-                }"
-              >
-                <option selected>Choose...</option>
-                <option *ngFor="let k of categories" [ngValue]="k?._id">
-                  {{ k?.category }}
-                </option>
-              </select>
-              <label for="category">Category</label>
-            </div>
-            <div class="form-floating col-4">
-              <input
-                type="number"
-                class="form-control"
-                id="calorie"
-                name="calorie"
-                formControlName="calorie"
-                placeholder="calorie"
-                required
-                [ngClass]="{ 'is-invalid': submit && f.calorie.errors }"
-              />
-              <label for="calorie">Calorie</label>
-            </div>
+          <div class="form-floating mb-3">
+            <input
+              type="number"
+              class="form-control"
+              id="calorie"
+              name="calorie"
+              formControlName="calorie"
+              placeholder="calorie"
+              required
+              [ngClass]="{ 'is-invalid': submit && f.calorie.errors }"
+            />
+            <label for="calorie">Calorie</label>
           </div>
           <button class="btn btn-success" *ngIf="isCreate" (click)="onSubmit()">Save</button>
           <button class="btn btn-primary" *ngIf="!isCreate" (click)="onEdit()">Update</button>

@@ -31,8 +31,15 @@ export class CategoryService {
     )
   }
 
+  getCategoriesByAdmin():Observable<any>{
+    return this._http.get<any>(this.categoryURL + "admin").pipe(
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
+
   getCategories():Observable<any>{
-    return this._http.get<any>(this.categoryURL).pipe(
+    return this._http.get<any>(this.categoryURL + "admin").pipe(
       retry(1),
       catchError(this.handleError)
     )

@@ -18,7 +18,7 @@ export class CategoryComponent implements OnInit {
   constructor( private categoryService: CategoryService, private _formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.getCategories();
+    this.getCategoriesByAdmin();
     this.createForm();
   }
 
@@ -32,8 +32,8 @@ export class CategoryComponent implements OnInit {
     return this.categoryForm.controls;
   }
 
-  getCategories(){
-    this.categoryService.getCategories().subscribe((data) => {
+  getCategoriesByAdmin(){
+    this.categoryService.getCategoriesByAdmin().subscribe((data) => {
       this.categories = data.data
       console.log(this.categories)
     },error => {
@@ -71,7 +71,7 @@ export class CategoryComponent implements OnInit {
     }
     this.categoryService.createCategory(this.categoryForm.value).subscribe((data) => {
       console.log(data.msg)
-      this.getCategories();
+      this.getCategoriesByAdmin();
       this.categoryForm.reset();
       Object.keys(this.categoryForm.controls).forEach(key => {
         this.categoryForm.get(key)?.setErrors(null) ;
@@ -88,7 +88,7 @@ export class CategoryComponent implements OnInit {
     }
     this.categoryService.updateCategory(this.category._id, this.categoryForm.value).subscribe((data) => {
       console.log(data.msg)
-      this.getCategories();
+      this.getCategoriesByAdmin();
       this.categoryForm.reset();
       Object.keys(this.categoryForm.controls).forEach(key => {
         this.categoryForm.get(key)?.setErrors(null) ;
@@ -99,7 +99,7 @@ export class CategoryComponent implements OnInit {
   deleteCategory(id: any){
     this.categoryService.deleteCategory(id).subscribe((data) => {
       console.log(data.msg);
-      this.getCategories();
+      this.getCategoriesByAdmin();
     })
   }
 }
