@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/UserService/user.service';
 
@@ -16,92 +16,77 @@ export class ForgotPasswordComponent implements OnInit {
   isSubmitted: boolean = false;
   isPassword: boolean = false;
   forgotPassword!: FormGroup;
-  showOtpComponent = true;
-  phoneNumber!: string;
-  coc!: string;
+  token!: string;
+  email!: string;
   password!: FormGroup
-  countryCode: any[] = [];
-  @ViewChild('ngOtpInput', { static: false }) ngOtpInput: any;
-  config = {
-    allowNumbersOnly: false,
-    length: 5,
-    isPasswordInput: false,
-    disableAutoFocus: false,
-    placeholder: '',
-    inputStyles: {
-      'width': '50px',
-      'height': '50px'
-    }
-  };
+
   constructor(private _formBuilder: FormBuilder,
     private authservice: AuthService,
     private userService: UserService,
+    private actRouter: ActivatedRoute,
+    private _route: Router,
     private router: Router,) { }
 
   ngOnInit(): void {
     this.forgotPasswordForm();
-    this.passwordForm()
+    this.passwordForm();
+    this.token = this.actRouter.snapshot.params['token']
+    this.email = this.actRouter.snapshot.params['email']
+    if(this.token && this.email){
+      this.isPassword = true
+    }
   }
 
 
   forgotPasswordForm(){
     this.forgotPassword = this._formBuilder.group({
-      countryCode: [''],
-      phoneNumber: ['']
+      email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
     })
   }
   get f(){
     return this.forgotPassword.controls;
   }
+
   sendOTP(){
     this.isSubmitted = true;
-    // if(this.forgotPassword.invalid){
-    //   return;
-    // }
-    let phoneObject = {
-      phoneNumber: this.phoneNumber
+    if(this.forgotPassword.invalid){
+      return;
     }
-    console.log(phoneObject)
-    // this.authservice.recover(phoneObject).subscribe((data) => {
-    //   console.log(data)
-    // }, error => {
-    //   console.log(error)
-    // })
-    this.isValid = false
+    this.authservice.recover(this.forgotPassword.get('email')?.value).subscribe((data) => {
+      console.log(data)
+    }, error => {
+      console.log(error)
+    })
   }
 
   passwordForm(){
     this.password = this._formBuilder.group({
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      token: [''],
+      email: ['']
     })
   }
+
   get g(){
     return this.password.controls;
   }
+
   submit(){
-    this.isPassword = true;
-    if(this.password.invalid && this.otp === ""){
-      return
+    this.isValid = true;
+    if(this.password.invalid){
+      return;
     }
-    let passwordObject = {
-      phoneNumber: this.phoneNumber,
-      token: this.otp,
-      password : this.password.get('password')?.value
-    }
-    // this.authservice.resetPassword(passwordObject).subscribe((data) => {
-    //   console.log(data)
-    //   this.router.navigate(['/login'])
-    // }, error => {
-    //   console.log(error)
-    // })
-
-  }
-
-  onOtpChange(otp: string) {
-    this.otp = otp;
-  }
-
-  setVal(val: any) {
-    this.ngOtpInput.setValue(val);
+    let passwordReset = {
+      password: this.password.get('password')?.value,
+      token: this.token,
+      email: this.email
+    };
+    console.log(passwordReset);
+    this.authservice.resetPassword(passwordReset).subscribe((data) => {
+      console.log(data)
+      this._route.navigate(['./login'])
+    },error => {
+      console.log(error)
+    })
   }
 }

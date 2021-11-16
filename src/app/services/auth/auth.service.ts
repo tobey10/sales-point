@@ -28,6 +28,13 @@ export class AuthService {
     )
   }
 
+  recover(email:any){
+    return this._http.post<any>(this.authURL+ "recover", {email})
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
   logout(){
     localStorage.removeItem('x-auth-token');
   }
@@ -47,14 +54,6 @@ export class AuthService {
     )
   }
 
-  resentOTP(phoneNumber: string):Observable<any>{
-    return this._http.patch<any>(this.authURL+"resendOtp",JSON.stringify(phoneNumber), this.httpOptions)
-    .pipe(
-      retry(1),
-      catchError(this.handleError)
-    )
-  }
-
   changePassword(passwordObject: any):Observable<any>{
     return this._http.patch<any>(this.authURL+"change-password",JSON.stringify(passwordObject), this.httpOptions)
     .pipe(
@@ -63,21 +62,14 @@ export class AuthService {
     )
   }
 
-  recover(phoneNumber:any): Observable<any>{
-    return this._http.post<any>(this.authURL+ "recover", phoneNumber)
+  resetPassword(passwordReset: any):Observable<any>{
+    return this._http.post<any>(this.authURL + "reset-password", JSON.stringify(passwordReset), this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
     )
   }
 
-  resetPassword(passwordReset: any):Observable<any>{
-    return this._http.post<any>(this.authURL + "reset", JSON.stringify(passwordReset), this.httpOptions)
-    .pipe(
-      retry(1),
-      catchError(this.handleError)
-    )
-  }
   isUserLoggedIn(){
     let user = this.tokenVlaue;
     if(user == null) return false

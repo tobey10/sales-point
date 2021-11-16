@@ -13,6 +13,7 @@
           <div class="card-body p-3 px-5">
             <h5 class="card-title text-center mb-5 fw-light fs-5">Register</h5>
             <p *ngIf="isError" class="login-body">{{ errorStatment }}</p>
+            <p class="text-center fw-light fs-5" *ngIf="submitSignUp">Check your mail to verify your account</p>
             <form
               autocomplete="off"
               [formGroup]="sign"
