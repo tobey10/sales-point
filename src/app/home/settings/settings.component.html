@@ -1,13 +1,27 @@
 <div class="main">
   <div class="container">
-    <button class="btn btn-outline-primary btn-sm" (click)="toggle(1)">Change Password</button>
-    <button class="btn btn-outline-primary btn-sm" (click)="toggle(2)">Change Name</button>
-    <button class="btn btn-outline-primary btn-sm" (click)="toggle(3)">Change Weight</button>
+    <button class="btn btn-outline-primary btn-sm" (click)="toggle(1)">
+      Change Password
+    </button>
+    <button class="btn btn-outline-primary btn-sm" (click)="toggle(2)">
+      Change Name
+    </button>
+    <button class="btn btn-outline-primary btn-sm" (click)="toggle(3)">
+      Change Weight
+    </button>
+    <button class="btn btn-outline-primary btn-sm" (click)="toggle(4)">
+      Change Height
+    </button>
   </div>
   <div [ngSwitch]="displayDivNumber">
     <div *ngSwitchCase="1" class="w-25">
       <p class="container-body">Change Password</p>
-      <form class="form" autocomplete="off" [formGroup]="password" (ngSubmit)="onSavePassword()">
+      <form
+        class="form"
+        autocomplete="off"
+        [formGroup]="password"
+        (ngSubmit)="onSavePassword()"
+      >
         <div class="form-floating mb-3">
           <input
             class="form-control"
@@ -39,7 +53,12 @@
     </div>
     <div *ngSwitchCase="2" class="w-25">
       <p class="container-body">Change Name</p>
-      <form class="form" autocomplete="off" [formGroup]="changeName" (ngSubmit)="onSaveUsername()">
+      <form
+        class="form"
+        autocomplete="off"
+        [formGroup]="changeName"
+        (ngSubmit)="onSaveUsername()"
+      >
         <div class="form-floating mb-3">
           <input
             class="form-control"
@@ -57,15 +76,20 @@
       </form>
     </div>
     <div *ngSwitchCase="3" class="w-25">
-      <p class="container-body">Change Weight & Height</p>
-      <form class="form" autocomplete="off" [formGroup]="changeWeight" (ngSubmit)="onSaveWeight()">
+      <p class="container-body">Change Weight</p>
+      <form
+        class="form"
+        autocomplete="off"
+        [formGroup]="changeWeight"
+        (ngSubmit)="onSaveWeight()"
+      >
         <div class="form-floating mb-3">
           <input
             class="form-control"
-            placeholder="Email"
             id="currentWeight"
             name="currentWeight"
             formControlName="currentWeight"
+            placeholder="currentWeight"
             required
             type="currentWeight"
             [ngClass]="{ 'is-invalid': isWeight && e.currentWeight.errors }"
@@ -73,47 +97,89 @@
           <label for="currentWeight">Current Weight</label>
         </div>
         <div class="form-floating mb-3">
-            <input
-              class="form-control"
-              placeholder="Email"
-              id="targetWeight"
-              name="targetWeight"
-              formControlName="targetWeight"
-              required
-              type="targetWeight"
-              [ngClass]="{ 'is-invalid': isWeight && e.targetWeight.errors }"
-            />
-            <label for="targetWeight">Target Weight</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input
-              class="form-control"
-              placeholder="Email"
-              id="currentHeight"
-              name="currentHeight"
-              formControlName="currentHeight"
-              required
-              type="currentHeight"
-              [ngClass]="{ 'is-invalid': isWeight && e.currentHeight.errors }"
-            />
-            <label for="email">Current Height</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input
-              class="form-control"
-              placeholder="Email"
-              id="targetHeight"
-              name="targetHeight"
-              formControlName="targetHeight"
-              required
-              type="targetHeight"
-              [ngClass]="{ 'is-invalid': isWeight && e.targetHeight.errors }"
-            />
-            <label for="targetHeight">Target Height</label>
-          </div>
-          <button class="btn btn-primary btn-sm mt-3">Save Changes</button>
+          <input
+            class="form-control"
+            id="targetWeight"
+            name="targetWeight"
+            placeholder="targetWeight"
+            formControlName="targetWeight"
+            required
+            type="targetWeight"
+            [ngClass]="{ 'is-invalid': isWeight && e.targetWeight.errors }"
+          />
+          <label for="targetWeight">Target Weight</label>
+        </div>
+        <div class="form-floating mb-3">
+          <select
+            formControlName="weightUnit"
+            id="weightUnit"
+            class="form-select"
+            [ngClass]="{
+              'is-invalid': isWeight && e.weightUnit.errors
+            }"
+          >
+            <option selected>choose..</option>
+            <option *ngFor="let k of weight" [ngValue]="k.key">
+              {{ k.value }}
+            </option>
+          </select>
+          <label for="targetWeight">Weight Unit</label>
+        </div>
+        <button class="btn btn-primary btn-sm mt-3">Save Changes</button>
+      </form>
+    </div>
+    <div *ngSwitchCase="4" class="w-25">
+      <p class="container-body">Change Height</p>
+      <form
+        class="form"
+        autocomplete="off"
+        [formGroup]="changeHeight"
+        (ngSubmit)="onSaveHeight()"
+      >
+        <div class="form-floating mb-3">
+          <input
+            class="form-control"
+            id="currentHeight"
+            name="currentHeight"
+            placeholder="currentHeight"
+            formControlName="currentHeight"
+            required
+            type="currentHeight"
+            [ngClass]="{ 'is-invalid': isHeight && g.currentHeight.errors }"
+          />
+          <label for="email">Current Height</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            class="form-control"
+            id="targetHeight"
+            name="targetHeight"
+            placeholder="targetHeight"
+            formControlName="targetHeight"
+            required
+            type="targetHeight"
+            [ngClass]="{ 'is-invalid': isHeight && g.targetHeight.errors }"
+          />
+          <label for="targetHeight">Target Height</label>
+        </div>
+        <div class="form-floating mb-3">
+          <select
+            formControlName="heightUnit"
+            id="heightUnit"
+            class="form-select"
+            [ngClass]="{
+              'is-invalid': isHeight && g.heightUnit.errors
+            }"
+          >
+            <option selected>choose..</option>
+            <option *ngFor="let k of height" [ngValue]="k.key">
+              {{ k.value }}
+            </option>
+          </select>
+          <label for="targetWeight">Height Unit</label>
+        </div>
+        <button class="btn btn-primary btn-sm mt-3">Save Changes</button>
       </form>
     </div>
   </div>
-  <button class="btn btn-danger btn-sm mt-5 w-25" (click)="logout()">Logout</button>
 </div>

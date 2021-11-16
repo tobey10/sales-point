@@ -11,9 +11,7 @@ import { UserService } from 'src/app/services/UserService/user.service';
 })
 export class ProfileComponent implements OnInit {
   user!:User
-  constructor(private userService: UserService,
-    private router: Router,
-    private authService: AuthService,) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.getUser()
@@ -24,10 +22,5 @@ export class ProfileComponent implements OnInit {
       this.user = data.data
       console.log(this.user)
     })
-  }
-
-  logout(){
-    this.authService.logout();
-    this.router.navigate(['/login'])
   }
 }

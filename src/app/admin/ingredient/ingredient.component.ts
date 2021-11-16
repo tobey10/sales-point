@@ -62,6 +62,9 @@ export class IngredientComponent implements OnInit {
   addIngredient(){
     this.isCreate = true;
     this.ingredientForm.reset();
+    Object.keys(this.ingredientForm.controls).forEach(key => {
+      this.ingredientForm.get(key)?.setErrors(null) ;
+    });
     const element = document.getElementById('edit');
     if(element){
       element.style.display = 'block'

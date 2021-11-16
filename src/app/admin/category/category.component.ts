@@ -44,6 +44,9 @@ export class CategoryComponent implements OnInit {
   addCategory(){
     this.isCreate = true;
     this.categoryForm.reset();
+    Object.keys(this.categoryForm.controls).forEach(key => {
+      this.categoryForm.get(key)?.setErrors(null) ;
+    });
     const element = document.getElementById('edit');
     if(element){
       element.style.display = 'block'

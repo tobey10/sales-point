@@ -14,7 +14,7 @@
     </div>
   </div>
   <p>Weight & Height</p>
-  <div class="w-50 col">
+  <div class="w-50 col mb-2">
     <div class="col d-flex justify-content-between">
       <div>
         <p>Current Weight</p>
@@ -31,6 +31,27 @@
       <div>
         <p>Target Height</p>
         <p>{{user?.targetHeight}} {{user?.heightUnit}}</p>
+      </div>
+    </div>
+  </div>
+  <p>BMI</p>
+  <div class="w-50 col">
+    <div class="col d-flex justify-content-between">
+      <div>
+        <p>Current BMI</p>
+        <p>{{user?.currentBMI}}</p>
+      </div>
+      <div>
+        <p>Target BMI</p>
+        <p>{{user?.targetBMI}}</p>
+      </div>
+      <div>
+        <p>Current BMI Category</p>
+        <p>{{user?.currentBMICategory}}</p>
+      </div>
+      <div>
+        <p>Target BMI Category</p>
+        <p>{{user?.targetBMICategory}}</p>
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/UserService/user.service';
-
+import { height, weight} from 'src/app/auth/data/data';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -13,11 +13,15 @@ export class SettingsComponent implements OnInit {
 
   password!: FormGroup
   changeWeight!: FormGroup
+  changeHeight!: FormGroup
   changeName!: FormGroup
   displayDivNumber: number = 1;
   isPassword: boolean = false
   isWeight: boolean = false;
+  isHeight: boolean = false;
   isName: boolean = false;
+  height = height
+  weight = weight
   responseMessage!: string;
   constructor(
     private _formBuilder: FormBuilder,
@@ -29,6 +33,7 @@ export class SettingsComponent implements OnInit {
     this.nameForm();
     this.weightForm();
     this.passwordForm();
+    this.heightForm();
   }
 
   passwordForm(){
@@ -42,19 +47,33 @@ export class SettingsComponent implements OnInit {
     this.changeWeight = this._formBuilder.group({
       currentWeight: ['', Validators.required],
       targetWeight:['', Validators.required],
-      targetHeight:['', Validators.required],
-      currentHeight:['', Validators.required],
+      weightUnit: ['', Validators.required]
     })
   }
-
   nameForm(){
     this.changeName = this._formBuilder.group({
       name: ['', Validators.required]
     })
   }
+  heightForm(){
+    this.changeHeight = this._formBuilder.group({
+      targetHeight:['', Validators.required],
+      currentHeight:['', Validators.required],
+      heightUnit: ['', Validators.required]
+    })
+  }
 
+  get g(){
+    return this.changeHeight.controls
+  }
   get f(){
     return this.password.controls;
+  }
+  get e(){
+    return this.changeWeight.controls
+  }
+  get d(){
+    return this.changeName.controls
   }
 
   onSavePassword(){
@@ -72,10 +91,6 @@ export class SettingsComponent implements OnInit {
     })
   }
 
-  get e(){
-    return this.changeWeight.controls
-  }
-
   onSaveWeight(){
     this.isWeight = true;
     if(this.changeWeight.invalid){
@@ -86,13 +101,30 @@ export class SettingsComponent implements OnInit {
       console.log(data)
       this.responseMessage = data.msg
       this.changeWeight.reset()
+      Object.keys(this.changeWeight.controls).forEach(key => {
+        this.changeWeight.get(key)?.setErrors(null) ;
+      });
     },error => {
       console.log(error)
     })
   }
 
-  get d(){
-    return this.changeName.controls
+  onSaveHeight(){
+    this.isHeight = true;
+    if(this.changeHeight.invalid){
+      return;
+    }
+    console.log(this.changeHeight.value)
+    this.userService.updateUser(this.changeHeight.value).subscribe((data) => {
+      console.log(data)
+      this.responseMessage = data.msg
+      this.changeHeight.reset()
+      Object.keys(this.changeHeight.controls).forEach(key => {
+        this.changeHeight.get(key)?.setErrors(null) ;
+      });
+    },error => {
+      console.log(error)
+    })
   }
 
   onSaveUsername(){
@@ -110,10 +142,6 @@ export class SettingsComponent implements OnInit {
     })
   }
 
-  logout(){
-    this.authService.logout();
-    this.router.navigate(['/login'])
-  }
 
   toggle(no: number){
     this.displayDivNumber = no

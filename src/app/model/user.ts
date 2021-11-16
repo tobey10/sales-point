@@ -10,4 +10,8 @@ export class User{
   targetHeight!: number;
   weightUnit!: String;
   heightUnit!: String;
+  currentBMI!: number;
+  targetBMI!: number;
+  currentBMICategory!: string;
+  targetBMICategory!: string;
 }
