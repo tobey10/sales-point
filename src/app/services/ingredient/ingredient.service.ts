@@ -53,8 +53,8 @@ export class IngredientService {
     )
   }
 
-  updateIngredient(id:any, category: any):Observable<any>{
-    return this._http.patch<any>(this.ingredientURL+id, JSON.stringify(category), this.httpOptions).pipe(
+  updateIngredient(id:any, ingredient: any):Observable<any>{
+    return this._http.patch<any>(this.ingredientURL+id, JSON.stringify(ingredient), this.httpOptions).pipe(
       retry(1),
       catchError(this.handleError)
     )

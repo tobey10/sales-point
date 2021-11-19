@@ -1,0 +1,144 @@
+<div class="p-5">
+  <div class="container-fluid">
+    <button class="btn btn-primary mb-2" (click)="addShop()">
+      Create Shop
+    </button>
+    <div class="d-flex flex-row">
+      <table class="table w-50">
+        <thead>
+          <tr class="text-center">
+            <th>No</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Address</th>
+            <th>PostCode</th>
+            <th>Approval Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center" *ngFor="let shop of shops; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ shop?.name }}</td>
+            <td>{{ shop?.description }}</td>
+            <td>{{ shop?.address }}</td>
+            <td>{{ shop?.postCode }}</td>
+            <td>{{ shop?.approvalStatus }}</td>
+            <td>
+              <button
+                class="btn btn-danger m-sm-1"
+                (click)="deleteShop(shop?._id)"
+              >
+                Delete
+              </button>
+              <button class="btn btn-primary" (click)="getShop(shop?._id)">
+                Edit
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="w-50" style="margin-left: 40px;" id="edit">
+        <p *ngIf="isCreate">Create Shop</p>
+        <p *ngIf="!isCreate">Edit Shop</p>
+        <form class="" autocomplete="off" [formGroup]="shopForm">
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              formControlName="name"
+              placeholder="name"
+              required
+              [ngClass]="{ 'is-invalid': submit && f.name.errors }"
+            />
+            <label for="name">Name</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="description"
+              name="description"
+              formControlName="description"
+              placeholder="description"
+              required
+              [ngClass]="{ 'is-invalid': submit && f.description.errors }"
+            />
+            <label for="description">Description</label>
+          </div>
+          <div class="row">
+            <div class="form-floating mb-3 col">
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                name="address"
+                formControlName="address"
+                placeholder="address"
+                required
+                [ngClass]="{ 'is-invalid': submit && f.address.errors }"
+              />
+              <label for="address" style="left: 12px;">Address</label>
+            </div>
+            <div class="form-floating mb-3 col">
+              <input
+                type="text"
+                class="form-control"
+                id="postCode"
+                name="postCode"
+                formControlName="postCode"
+                placeholder="postCode"
+                required
+                [ngClass]="{ 'is-invalid': submit && f.postCode.errors }"
+              />
+              <label for="postCode" style="left: 12px;">Post Code</label>
+            </div>
+          </div>
+          <div class="form-group row mb-2">
+            <label for="exampleFormControlFile1">Logo</label>
+            <input
+              type="file"
+              #logo
+              class="form-control-file"
+              id="exampleFormControlFile1"
+              name="logo"
+              (change)="selectLogo($event)"
+              placeholder="logo"
+              required
+            />
+          </div>
+          <div class="form-group row mb-2">
+            <label for="image">Image</label>
+            <input
+              type="file"
+              class="form-control-file"
+              id="image"
+              name="image"
+              #image
+              (change)="selectImage($event)"
+              placeholder="image"
+              required
+            />
+          </div>
+          <div class="form-group row mb-2">
+            <label for="document">Document</label>
+            <input
+              type="file"
+              class="form-control-file"
+              id="document"
+              name="document"
+              (change)="selectDocument($event)"
+              placeholder="document"
+              #document
+              required
+            />
+          </div>
+          <button class="btn btn-success" *ngIf="isCreate" (click)="onSubmit()">Save</button>
+          <button class="btn btn-primary" *ngIf="!isCreate" (click)="onEdit()">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

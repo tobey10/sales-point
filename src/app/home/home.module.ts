@@ -8,6 +8,9 @@ import { SettingsComponent } from './settings/settings.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ShopComponent } from './shop/shop.component';
+import { FooterComponent } from './footer/footer.component';
+import { MenuComponent } from './menu/menu.component';
 
 
 @NgModule({
@@ -15,7 +18,10 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     ProfileComponent,
     SettingsComponent,
-    NavbarComponent
+    NavbarComponent,
+    ShopComponent,
+    FooterComponent,
+    MenuComponent
   ],
   imports: [
     CommonModule,

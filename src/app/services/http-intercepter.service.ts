@@ -15,7 +15,6 @@ export class HttpIntercepterService {
     const isAPIURL = request.url.startsWith('http://localhost:3000');
     if(isLoggIn && isAPIURL){
       request = request.clone({headers: request.headers.set('x-auth-token', tokenObj)})
-      request = request.clone({headers: request.headers.set('Content-Type', 'application/json')})
       request = request.clone({headers: request.headers.set('Accept', 'application/json')})
     }
     return next.handle(request)

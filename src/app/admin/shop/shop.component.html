@@ -1,0 +1,36 @@
+<div class="p-5">
+  <div class="container-fluid">
+    <div class="d-flex flex-row">
+      <table class="table table-hover w-50">
+        <thead>
+          <tr  class="text-center">
+            <th>No</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Address</th>
+            <th>PostCode</th>
+            <th>Action</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  class="text-center" *ngFor="let shop of shops; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{shop?.name}}</td>
+            <td>{{shop?.description}}</td>
+            <td>{{shop?.address}}</td>
+            <td>{{shop?.postCode}}</td>
+            <td>{{shop?.approvalStatus}}</td>
+            <td>
+              <button class="btn btn-primary" (click)="onApprove(shop?._id)">Approve</button>
+              <button class="btn btn-primary" (click)="deleteShop(shop?._id)">Approve</button>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+    <div class="w-50" style="margin-left: 40px; display: none;" id="edit">
+      <p>Edit Category</p>
+    </div>
+    </div>
+  </div>
+</div>

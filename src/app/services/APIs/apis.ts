@@ -8,4 +8,8 @@ export class APIS{
   public static categoryURL = APIS.generalURL + "category/";
 
   public static ingredientURL = APIS.generalURL + "ingredient/";
+
+  public static shopURL = APIS.generalURL + "shop/";
+
+  public static menuURL = APIS.generalURL + "menu/";
 }

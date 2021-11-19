@@ -1,0 +1,53 @@
+@import '../../sass/main';
+@import '../../sass/vairable';
+@import '../../sass/text';
+
+.container{
+  width: 80%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 2rem auto;
+  @include text(10px, left, 100%);
+  &-body{
+    padding: 0 10px;
+  }
+  &-left{
+    width: 22%;
+    height: 29rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%);
+
+    &-box{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      &-nav{
+        padding: 1rem;
+        background-color: white;
+        color: black;
+        margin-bottom:1.2rem;
+        width:100%;
+
+        &:hover{
+          background-color:#F5F5F5;
+        }
+
+        &:active{
+          background-color: #EDEDED;
+        }
+      }
+
+    }
+  }
+
+  &-right{
+    width: 76%;
+    height: 20rem;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%);
+
+  }
+}

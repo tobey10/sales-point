@@ -1,0 +1,122 @@
+<div class="p-5">
+  <div class="container-fluid">
+    <button class="btn btn-primary mb-2">Create Menu</button>
+    <div class="d-flex flex-row">
+      <table class="table w-50">
+        <thead>
+          <tr class="text-center">
+            <th>No</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Shop</th>
+            <th>Ingredients</th>
+            <th>Category</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center" *ngFor="let menu of menus; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ menu.name }}</td>
+            <td>{{ menu.description }}</td>
+            <td>{{ menu.shop?.name }}</td>
+            <td>{{menu.ingredient?.ingredient}}</td>
+            <td>{{ menu.category?.category }}</td>
+            <td>
+              <button class="btn btn-danger m-sm-1" (click)="deleteMenu(menu?._id)">Delete</button>
+              <button class="btn btn-primary"  (click)="getMenu(menu?._id)">Edit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="w-50" style="margin-left: 40px" id="edit">
+        <p *ngIf="isCreate">Create Menu</p>
+        <p *ngIf="!isCreate">Edit Menu</p>
+        <form class="" autocomplete="off" [formGroup]="menuForm">
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              formControlName="name"
+              placeholder="name"
+              required
+              [ngClass]="{ 'is-invalid': submit && f.name.errors }"
+            />
+            <label for="name">Name</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="description"
+              name="description"
+              formControlName="description"
+              placeholder="description"
+              required
+              [ngClass]="{ 'is-invalid': submit && f.description.errors }"
+            />
+            <label for="description">Description</label>
+          </div>
+          <div class="row">
+            <div class="form-floating form-group mb-3 col">
+              <select
+                id="category"
+                class="form-control form-select"
+                formControlName="category"
+                placeholder="category"
+                [ngClass]="{ 'is-invalid': submit && f.category.errors }"
+              >
+                <option selected>Choose...</option>
+                <option
+                  *ngFor="let category of categories"
+                  [ngValue]="category._id"
+                >
+                  {{ category.category }}
+                </option>
+              </select>
+              <label for="category" style="left: 12px">Category</label>
+            </div>
+            <div class="form-floating form-group mb-3 col">
+              <select
+                id="shop"
+                class="form-control form-select"
+                formControlName="shop"
+                placeholder="shop"
+                [ngClass]="{ 'is-invalid': submit && f.shop.errors }"
+              >
+                <option selected>Choose...</option>
+                <option *ngFor="let shop of shops" [ngValue]="shop._id">
+                  {{ shop.name }}
+                </option>
+              </select>
+              <label for="shop" style="left: 12px">Shop</label>
+            </div>
+          </div>
+          <div class="form-floating form-group mb-3">
+            <select
+              id="ingredient"
+              class="form-control form-select"
+              formControlName="ingredient"
+              placeholder="ingredient"
+              [ngClass]="{ 'is-invalid': submit && f.ingredient.errors }"
+            >
+              <option selected>Choose...</option>
+              <option *ngFor="let ingredient of ingredients" [ngValue]="ingredient._id">
+                {{ ingredient.ingredient }}
+              </option>
+            </select>
+            <label for="shop">Ingredient</label>
+          </div>
+          <button class="btn btn-success" *ngIf="isCreate" (click)="onSubmit()">
+            Save
+          </button>
+          <button class="btn btn-primary" *ngIf="!isCreate" (click)="onEdit()">
+            Update
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

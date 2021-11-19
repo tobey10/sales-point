@@ -2,14 +2,12 @@
 
 @mixin text($margin, $textAlign, $width){
   &-subheader{
-    font-family: $font-primary;
     font-size: 14px;
     color: #7e7b8a;
     margin: $margin 0;
     text-transform: capitalize;
   }
   &-header{
-    font-family: $font-primary;
     font-size: 30px;
     text-transform: capitalize;
     font-weight: 600;
@@ -19,7 +17,6 @@
     margin-bottom: 2rem;
   }
   &-body{
-    font-family: $font-primary;
     width: $width;
     font-size: 16px;
     color: #7e7b8a;
